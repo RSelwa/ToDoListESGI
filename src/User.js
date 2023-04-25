@@ -1,15 +1,20 @@
-import { UserInterface, ToDoListItem, ResponseAddItem } from "./types/index.ts";
-import { isTitleUnique } from "./utils.ts";
-const { EmailSenderService } = require('EmailSenderService')
+const isTitleUnique = (todoList, title) => {
+  for (const todoListItem of todoList) {
+    if (todoListItem.title === title) {
+      return false
+    }
+  }
+  return true
+}
 
-exports.User = class User implements UserInterface {
-  email: string
-  firstname: string
-  lastname: string
-  age: number
-  todoList: ToDoListItem[]
+exports.User = class User  {
+  email
+  firstname
+  lastname
+  age
+  todoList
 
-  constructor(email: string, firstname: string, lastname: string, age: number, todoList?: ToDoListItem[]) {
+  constructor(email, firstname, lastname, age, todoList) {
     this.email = email;
     this.firstname = firstname;
     this.lastname = lastname;
@@ -38,7 +43,7 @@ exports.User = class User implements UserInterface {
     return this.isEmailValid() && this.isNameValid() && this.isAgeValid();
   }
   
-  addToDoListItem(toDoListItem: ToDoListItem) : ResponseAddItem {
+  addToDoListItem(toDoListItem) {
     let isEmailSended =  false
 
     if (!this.isValid()) {
@@ -75,8 +80,8 @@ exports.User = class User implements UserInterface {
     }
     
     if (this.todoList.length === 7) {
-      const emailSenderService = new EmailSenderService('to', 'from', 'subject', 'blablabla')
-      emailSenderService.sendEmail()
+      // const emailSenderService = new EmailSenderService('to', 'from', 'subject', 'blablabla')
+      // emailSenderService.sendEmail()
       isEmailSended = true
     }
 
