@@ -11,3 +11,16 @@ export type ToDoListItem = {
   text: string;
   creationTimestamp: number;
 };
+
+export interface EmailSenderServiceInterface {
+  to: string
+  from: string
+  subject: string
+  content: string
+}
+
+export interface ResponseAddItem {
+  status: "added" | "error", 
+  error?: string,
+  emailSended?: boolean
+}
