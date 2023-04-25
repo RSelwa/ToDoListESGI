@@ -1,4 +1,9 @@
 const { User } = require("../User");
+const { EmailSenderService } = require('../EmailSenderService')
+
+const spy = jest.spyOn(EmailSenderService.prototype, 'sendEmail')
+
+jest.mock('../EmailSenderService')
 
 describe("test Form ", () => {
   const newItem = {
@@ -15,7 +20,7 @@ describe("test Form ", () => {
     };
     expect(user.addToDoListItem(newItem)).toStrictEqual(res);
   });
-
+  
   it("should have add toDoItem", () => {
     const user = new User("test@test.fr", "test", "test", 13);
     const res = {
@@ -23,8 +28,8 @@ describe("test Form ", () => {
     };
     expect(user.addToDoListItem(newItem)).toStrictEqual(res);
   });
-
-  it("should have add toDoItem but send el famoso email", () => {
+  
+  it("should have add toDoItem and send email", () => {
     const todoListWith7Items = [
       {
         title: "Faire les courses",
@@ -74,7 +79,11 @@ describe("test Form ", () => {
       status: "added",
       emailSended: true,
     };
+    
+
     expect(user.addToDoListItem(newItem)).toStrictEqual(res);
+    expect(EmailSenderService).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   });
 
   it("should have not add toDoItem because not wait 30 minutes", () => {
@@ -185,6 +194,7 @@ describe("test Form ", () => {
     };
     expect(user.addToDoListItem(newItem)).toStrictEqual(res);
   });
+
   it("should have not add toDoItem because too not title unique", () => {
     const todoListWith1Items = [
       {

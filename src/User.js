@@ -1,3 +1,5 @@
+const { EmailSenderService } = require('./EmailSenderService.js')
+
 const isTitleUnique = (todoList, title) => {
   for (const todoListItem of todoList) {
     if (todoListItem.title === title) {
@@ -80,8 +82,8 @@ exports.User = class User {
     }
 
     if (this.todoList.length === 7) {
-      // const emailSenderService = new EmailSenderService('to', 'from', 'subject', 'blablabla')
-      // emailSenderService.sendEmail()
+      const emailSenderService = new EmailSenderService('to', 'from', 'subject', 'blablabla')
+      emailSenderService.sendEmail()
       isEmailSended = true;
     }
 
