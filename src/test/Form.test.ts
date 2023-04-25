@@ -26,7 +26,6 @@ const newItem:ToDoListItem= {
 
   it("should have add toDoItem but send el famoso email", () => {
 
-    const user = new User("test@test.fr", "test", "test", 13);
     const todoListWith7Items: ToDoListItem[] = [
       {
         title: "Faire les courses",
@@ -64,6 +63,8 @@ const newItem:ToDoListItem= {
         creationTimestamp: 0
       }
     ];
+    const user = new User("test@test.fr", "test", "test", 13,todoListWith7Items);
+
     const res : ResponseAddItem = {
       status: "added",
       emailSended:true
@@ -88,7 +89,7 @@ const newItem:ToDoListItem= {
     const res : ResponseAddItem = {
       status: "error",error:"Time creation to close"
     }
-    expect(user.addToDoListItem(newItem)).toBe(res);
+    expect(user.addToDoListItem(item)).toBe(res);
   });
 
 
