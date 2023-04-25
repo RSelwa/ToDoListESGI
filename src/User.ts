@@ -1,21 +1,18 @@
-interface UserInterface {
-  email: string
-  firstname: string
-  lastname: string
-  age: number
-}
+import { UserInterface, TodoList } from "./types";
 
-exports.User = class User {
+exports.User = class User implements UserInterface {
   email: string
   firstname: string
   lastname: string
   age: number
-  
-  constructor({email, firstname, lastname, age}: UserInterface) {
+  todoList: TodoList[]
+
+  constructor({email, firstname, lastname, age, todoList}: UserInterface) {
     this.email = email;
     this.firstname = firstname;
     this.lastname = lastname;
     this.age = age;
+    this.todoList = todoList
   }
 
   getUser() {
