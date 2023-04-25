@@ -1,7 +1,17 @@
-type UserType = any;
+interface UserInterface {
+  email: string
+  firstname: string
+  lastname: string
+  age: number
+}
 
 exports.User = class User {
-  constructor(email: string, firstname: string, lastname: string, age: string) {
+  email: string
+  firstname: string
+  lastname: string
+  age: number
+  
+  constructor({email, firstname, lastname, age}: UserInterface) {
     this.email = email;
     this.firstname = firstname;
     this.lastname = lastname;
