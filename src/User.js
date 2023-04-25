@@ -1,25 +1,25 @@
 const isTitleUnique = (todoList, title) => {
   for (const todoListItem of todoList) {
     if (todoListItem.title === title) {
-      return false
+      return false;
     }
   }
-  return true
-}
+  return true;
+};
 
-exports.User = class User  {
-  email
-  firstname
-  lastname
-  age
-  todoList
+exports.User = class User {
+  email;
+  firstname;
+  lastname;
+  age;
+  todoList;
 
   constructor(email, firstname, lastname, age, todoList) {
     this.email = email;
     this.firstname = firstname;
     this.lastname = lastname;
     this.age = age;
-    this.todoList = todoList || []
+    this.todoList = todoList || [];
   }
 
   getUser() {
@@ -42,61 +42,67 @@ exports.User = class User  {
   isValid() {
     return this.isEmailValid() && this.isNameValid() && this.isAgeValid();
   }
-  
+
   addToDoListItem(toDoListItem) {
-    let isEmailSended =  false
+    let isEmailSended = false;
 
     if (!this.isValid()) {
       return {
-        error: 'User is not valid',
-        status: 'error',
-      }
+        error: "User is not valid",
+        status: "error",
+      };
     }
 
     if (this.todoList.length > 0) {
-      const lastItem = this.todoList[0]
-      const dateNow = Date.now()
+      const lastItem = this.todoList[0];
+      const dateNow = Date.now();
 
       if (dateNow < lastItem.creationTimestamp + 1800000) {
         return {
-          error: 'Time creation to close',
-          status: 'error'
-        }
+          error: "Time creation to close",
+          status: "error",
+        };
       }
     }
 
     if (toDoListItem.text.length > 1000) {
       return {
-        status: "error", 
-        error: "Your note should be less than 1000 char"
-      }
+        status: "error",
+        error: "Your note should be less than 1000 char",
+      };
     }
 
-    if (this.todoList.length >= 10){
+    if (this.todoList.length >= 10) {
       return {
-        error: 'Too many items',
-        status: 'error'
-      }
+        error: "Too many items",
+        status: "error",
+      };
     }
-    
+
     if (this.todoList.length === 7) {
       // const emailSenderService = new EmailSenderService('to', 'from', 'subject', 'blablabla')
       // emailSenderService.sendEmail()
-      isEmailSended = true
+      isEmailSended = true;
     }
 
     if (!isTitleUnique(this.todoList, toDoListItem.title)) {
       return {
-        error: 'Title is not unique',
-        status: 'error'
-      }
+        error: "Title is not unique",
+        status: "error",
+      };
     }
 
-    this.todoList.push(toDoListItem)
-    
-    return {
-      status: "added", 
-      emailSended: isEmailSended
+    this.todoList.push(toDoListItem);
+
+    if (isEmailSended) {
+      return {
+        status: "added",
+        emailSended: isEmailSended,
+      };
+    } else {
+      return {
+        status: "added",
+      };
     }
   }
 };
