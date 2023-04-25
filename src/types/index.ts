@@ -1,12 +1,13 @@
 export interface UserInterface {
-  email: string
-  firstname: string
-  lastname: string
-  age: number
-  todoList: TodoList[]
+  email: string;
+  firstname: string;
+  lastname: string;
+  age: number;
+  todoList: ToDoListItem[];
 }
 
-export interface TodoList {
-  name: string
-  content: string
-}
+export type ToDoListItem = {
+  title: string;
+  text: string;
+  creationTimestamp: number;
+};
